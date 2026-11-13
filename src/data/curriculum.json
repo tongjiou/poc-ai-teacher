@@ -1,0 +1,95 @@
+[
+  {
+    "id": "meaning",
+    "grade": 5,
+    "subject": "math",
+    "unit": "割合",
+    "titleJa": "割合の意味",
+    "prerequisites": ["わり算の意味", "ある量をもとにした何倍かの見方"],
+    "learningGoalJa": "もとにする量を1と見て、割合で二つの量の関係を表せる。",
+    "misconceptionIds": ["reversed", "additive", "calculation_slip"],
+    "examplesJa": [
+      "12本の色えんぴつのうち青は3本です。青の割合は何を表しますか？",
+      "花が8本と2本あります。2本は8本の何倍ですか？"
+    ]
+  },
+  {
+    "id": "relation",
+    "grade": 5,
+    "subject": "math",
+    "unit": "割合",
+    "titleJa": "比べられる量・もとにする量・割合の関係",
+    "prerequisites": ["割合の意味", "小数のかけ算とわり算"],
+    "learningGoalJa": "比べられる量、もとにする量、割合のうち、分かっている二つから残りの一つを求められる。",
+    "misconceptionIds": ["reversed", "additive", "calculation_slip"],
+    "examplesJa": [
+      "もとにする量が40個で、割合が0.3です。比べられる量は何個ですか？",
+      "24人が全体の0.6にあたります。もとにする量は何人ですか？"
+    ]
+  },
+  {
+    "id": "percent",
+    "grade": 5,
+    "subject": "math",
+    "unit": "割合",
+    "titleJa": "小数と百分率",
+    "prerequisites": ["割合の意味", "小数の位取りと100倍"],
+    "learningGoalJa": "もとにする量を100として百分率を捉え、小数と百分率を相互に表せる。",
+    "misconceptionIds": ["decimal_shift", "times_percent", "calculation_slip"],
+    "examplesJa": [
+      "0.25を百分率で表すと何％ですか？",
+      "40％を小数で表すといくつですか？"
+    ]
+  },
+  {
+    "id": "decimal",
+    "grade": 5,
+    "subject": "math",
+    "unit": "小数の乗法・除法",
+    "titleJa": "小数のかけ算・わり算",
+    "prerequisites": [
+      "小数の位取り",
+      "整数のかけ算・わり算"
+    ],
+    "learningGoalJa": "かける数やわる数が小数の場合の意味と計算方法を理解する。",
+    "misconceptionIds": [],
+    "examplesJa": [
+      "2.4 × 1.5 はいくつですか？",
+      "4.8 ÷ 1.2 はいくつですか？"
+    ]
+  },
+  {
+    "id": "area",
+    "grade": 5,
+    "subject": "math",
+    "unit": "図形の面積",
+    "titleJa": "三角形・四角形の面積",
+    "prerequisites": [
+      "長方形の面積",
+      "底辺と高さ"
+    ],
+    "learningGoalJa": "底辺と垂直な高さを使って、三角形、平行四辺形、台形、ひし形の面積を求める。",
+    "misconceptionIds": [],
+    "examplesJa": [
+      "底辺 8 cm、高さ 5 cm の三角形の面積は何 cm² ですか？",
+      "上底 4 cm、下底 10 cm、高さ 6 cm の台形の面積は何 cm² ですか？"
+    ]
+  },
+  {
+    "id": "volume",
+    "grade": 5,
+    "subject": "math",
+    "unit": "体積",
+    "titleJa": "直方体と立方体の体積",
+    "prerequisites": [
+      "長方形の面積",
+      "長さの単位"
+    ],
+    "learningGoalJa": "1 cm³ の立方体を単位に、直方体と立方体の体積を求める。",
+    "misconceptionIds": [],
+    "examplesJa": [
+      "たて 4 cm、横 6 cm、高さ 3 cm の直方体の体積は何 cm³ ですか？",
+      "一辺が 5 cm の立方体の体積は何 cm³ ですか？"
+    ]
+  }
+]

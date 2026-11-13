@@ -1,0 +1,72 @@
+[
+  {
+    "id": "reversed",
+    "curriculumNodeId": "relation",
+    "descriptionJa": "もとにする量と比べられる量を逆にしている",
+    "evidencePatterns": ["基準量 ÷ 比較量", "全体 ÷ 部分", "もとにする量 ÷ 比べられる量"],
+    "diagnosticQuestionJa": "20人のうち5人が参加しました。もとにする量は何人ですか？", "diagnosticQuestionZh": "20 人中有 5 人参加。作为基准的量是多少人？",
+    "correctionHintJa": "「何のうち」と考えましょう。20人全体をもとにして、参加した5人を比べます。", "correctionHintZh": "想一想「从多少人当中选出来」。20 人是全体，用参加的 5 人与全体比较。",
+    "diagnosticWrongAnswers": ["5", "5人"],
+    "diagnosticCorrectAnswers": ["20", "20人"],
+    "verification": [
+      { "questionJa": "30人のうち6人が参加しました。もとにする量は何人ですか？", "questionZh": "30 人中有 6 人参加。作为基准的量是多少人？", "answers": ["30", "30人"] },
+      { "questionJa": "80枚のうち12枚が赤です。もとにする量は何枚ですか？", "questionZh": "80 张纸中有 12 张是红色的。作为基准的量是多少张？", "answers": ["80", "80枚"] }
+    ]
+  },
+  {
+    "id": "additive",
+    "curriculumNodeId": "relation",
+    "descriptionJa": "割合を、二つの量の和や差で求めようとしている",
+    "evidencePatterns": ["引き算で割合", "割合は足し算", "基準量 − 比較量"],
+    "diagnosticQuestionJa": "20人のうち5人の割合を求めるとき、式は「5÷20」と「20−5」のどちらですか？", "diagnosticQuestionZh": "20 人中有 5 人参加。求参加人数的比例，应该用 5÷20 还是 20−5？",
+    "correctionHintJa": "引き算で分かるのは人数の差です。割合は、比べられる量をもとにする量で割って求めます。", "correctionHintZh": "减法算出的是相差多少人。要求比例，就用比较量除以基准量。",
+    "diagnosticWrongAnswers": ["20-5", "引き算", "ひき算"],
+    "diagnosticCorrectAnswers": ["5÷20", "5/20", "割り算", "わり算"],
+    "verification": [
+      { "questionJa": "30人のうち6人の割合を求める式を書けますか？", "questionZh": "30 人中有 6 人参加。求参加人数的比例，算式怎么写？", "answers": ["6÷30", "6/30"] },
+      { "questionJa": "40枚のうち8枚が赤です。赤い紙の割合を求める式を書けますか？", "questionZh": "40 张纸中有 8 张是红色的。求红纸的比例，算式怎么写？", "answers": ["8÷40", "8/40"] }
+    ]
+  },
+  {
+    "id": "decimal_shift",
+    "curriculumNodeId": "percent",
+    "descriptionJa": "小数を百分率に直すときに10倍している",
+    "evidencePatterns": ["0.25 → 2.5%", "0.3 → 3%", "10倍すれば百分率"],
+    "diagnosticQuestionJa": "0.3を百分率で表すと何％になりますか？", "diagnosticQuestionZh": "把 0.3 写成百分数是多少？",
+    "correctionHintJa": "百分率は、もとを100とした表し方です。小数で表した割合を100倍してから％をつけます。", "correctionHintZh": "百分数是把基准量看作 100 来表示的。把小数乘以 100，再添上百分号。",
+    "diagnosticWrongAnswers": ["3%"],
+    "diagnosticCorrectAnswers": ["30%"],
+    "verification": [
+      { "questionJa": "0.4を百分率で表すと何％ですか？", "questionZh": "把 0.4 写成百分数是多少？", "answers": ["40%"] },
+      { "questionJa": "0.08を百分率で表すと何％ですか？", "questionZh": "把 0.08 写成百分数是多少？", "answers": ["8%"] }
+    ]
+  },
+  {
+    "id": "times_percent",
+    "curriculumNodeId": "percent",
+    "descriptionJa": "「何倍」と「何％」の数が同じだと考えている",
+    "evidencePatterns": ["0.5倍 → 0.5%", "2倍 → 2%", "50% → 50倍"],
+    "diagnosticQuestionJa": "もとの量の0.5倍を、百分率で表すと何％ですか？", "diagnosticQuestionZh": "基准量的 0.5 倍，写成百分数是多少？",
+    "correctionHintJa": "1倍は、もとの量そのものです。百分率では100％なので、倍と％の数字は同じではありません。", "correctionHintZh": "1 倍就是基准量本身，写成百分数是 100%。想一想 0.5 倍相当于 100% 的哪一部分。",
+    "diagnosticWrongAnswers": ["0.5%", "0.5倍"],
+    "diagnosticCorrectAnswers": ["50%"],
+    "verification": [
+      { "questionJa": "もとの量の0.2倍は何％ですか？", "questionZh": "基准量的 0.2 倍是多少百分比？", "answers": ["20%"] },
+      { "questionJa": "もとの量の1.5倍は何％ですか？", "questionZh": "基准量的 1.5 倍是多少百分比？", "answers": ["150%"] }
+    ]
+  },
+  {
+    "id": "calculation_slip",
+    "curriculumNodeId": "relation",
+    "descriptionJa": "割合の式は合っている可能性があるが、計算結果が式と合わない",
+    "evidencePatterns": ["割合の式: 5 ÷ 20 = 0.3"],
+    "diagnosticQuestionJa": "20人のうち5人の割合を求める式は「5÷20」と「20÷5」のどちらですか？", "diagnosticQuestionZh": "20 人中有 5 人参加。求参加人数的比例，应该用 5÷20 还是 20÷5？",
+    "correctionHintJa": "式は合っていますね。答えをもとにする量にかけると、比べられる量にもどるか確かめられます。", "correctionHintZh": "算式是对的。可以用算出的比例乘以基准量，看看能不能得到比较量。",
+    "diagnosticWrongAnswers": [],
+    "diagnosticCorrectAnswers": ["5÷20", "5/20"],
+    "verification": [
+      { "questionJa": "4÷20を計算するといくつですか？", "questionZh": "4÷20 等于多少？", "answers": ["0.2"] },
+      { "questionJa": "6÷20を計算するといくつですか？", "questionZh": "6÷20 等于多少？", "answers": ["0.3"] }
+    ]
+  }
+]
