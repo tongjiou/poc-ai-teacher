@@ -4,6 +4,9 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { modelDefaults, modelProviders, modelSettingsSchema, type ModelSettings } from "../lib/model-settings";
 import type { TutorLanguage } from "../types/tutor";
 
+const publicMode = process.env.NEXT_PUBLIC_TUTOR_PUBLIC_MODE === "1";
+const availableProviders = publicMode ? modelProviders.filter((provider) => provider !== "compatible") : modelProviders;
+
 export function ModelDialog({ language, current, onLanguageChange, onSave, onClose }: {
   language: TutorLanguage;
   current: ModelSettings | null;
@@ -13,7 +16,7 @@ export function ModelDialog({ language, current, onLanguageChange, onSave, onClo
 }) {
   const zh = language === "zh";
   const dialog = useRef<HTMLDialogElement>(null);
-  const [provider, setProvider] = useState(current?.provider ?? "deepseek");
+  const [provider, setProvider] = useState(current?.provider ?? (publicMode ? "mock" : "deepseek"));
   const [fields, setFields] = useState(current && current.provider !== "mock"
     ? { baseUrl: current.baseUrl, model: current.model } : modelDefaults[provider]);
   const [error, setError] = useState(false);
@@ -49,21 +52,21 @@ export function ModelDialog({ language, current, onLanguageChange, onSave, onClo
           : "API キーを入力するか、Mock を選んでください。再読み込みするとキーは消去されます。"}</p>
         <label>{zh ? "供应商" : "プロバイダー"}
           <select value={provider} onChange={(event) => {
-            const next = modelProviders.find((item) => item === event.target.value);
+            const next = availableProviders.find((item) => item === event.target.value);
             if (!next) return;
             setProvider(next);
             setFields(modelDefaults[next]);
             setError(false);
           }}>
-            {modelProviders.map((item) => <option key={item} value={item}>{item === "mock" ? "Mock" : item}</option>)}
+            {availableProviders.map((item) => <option key={item} value={item}>{item === "mock" ? "Mock" : item}</option>)}
           </select>
         </label>
         {provider !== "mock" && <>
           <label>{zh ? "API 基础地址" : "API ベース URL"}
-            <input type="url" required maxLength={2048} value={fields.baseUrl} onChange={(event) => setFields({ ...fields, baseUrl: event.target.value })} />
+            <input type="url" readOnly={publicMode} required maxLength={2048} value={fields.baseUrl} onChange={(event) => setFields({ ...fields, baseUrl: event.target.value })} />
           </label>
           <label>{zh ? "模型名" : "モデル名"}
-            <input required maxLength={256} value={fields.model} onChange={(event) => setFields({ ...fields, model: event.target.value })} />
+            <input readOnly={publicMode} required maxLength={256} value={fields.model} onChange={(event) => setFields({ ...fields, model: event.target.value })} />
           </label>
           <label>API Key
             <input name="apiKey" type="password" autoComplete="off" required maxLength={1024} />

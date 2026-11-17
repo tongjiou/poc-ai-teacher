@@ -1,6 +1,6 @@
 import { chatRequest } from "../../../lib/chat-contract";
 import { tutorReply } from "../../../lib/tutor";
-import { modelSettingsSchema, type ModelSettings } from "../../../lib/model-settings";
+import { modelDefaults, modelSettingsSchema, type ModelSettings } from "../../../lib/model-settings";
 import type { ChatError } from "../../../types/tutor";
 
 const maxBytes = 96 * 1024;
@@ -34,18 +34,29 @@ export async function POST(request: Request) {
 
   const parsed = chatRequest.safeParse(payload);
   if (!parsed.success) return error(400, "invalid_request", "メッセージの長さや会話の順番を確認してください。", false);
-  let settings: ModelSettings | undefined;
+  const publicOrigin = process.env.TUTOR_PUBLIC_ORIGIN;
+  const origin = request.headers.get("origin");
+  if (publicOrigin && origin !== publicOrigin) {
+    return error(403, "invalid_request", "このサイトからアクセスしてください。", false);
+  }
+  // Public visitors never inherit server-side model credentials.
+  let settings: ModelSettings | undefined = publicOrigin ? { provider: "mock" } : undefined;
   if (payload && typeof payload === "object" && "modelSettings" in payload) {
-    const origin = request.headers.get("origin");
     const host = request.headers.get("host");
-    // Only the local POC page may choose an outbound model endpoint.
-    if (!host || !/^(?:localhost|127\.0\.0\.1)(?::\d+)?$/.test(host) ||
-      (origin !== `http://${host}` && origin !== `https://${host}`)) {
+    // Custom endpoints remain available only in the local POC.
+    if (!publicOrigin && (!host || !/^(?:localhost|127\.0\.0\.1)(?::\d+)?$/.test(host) ||
+      (origin !== `http://${host}` && origin !== `https://${host}`))) {
       return error(403, "invalid_request", "ローカルページから設定してください。", false);
     }
     const config = modelSettingsSchema.safeParse(payload.modelSettings);
     if (!config.success) return error(400, "invalid_request", "モデル設定を確認してください。", false);
     settings = config.data;
+    if (publicOrigin && settings.provider !== "mock") {
+      if (settings.provider === "compatible" || settings.baseUrl !== modelDefaults[settings.provider].baseUrl ||
+        settings.model !== modelDefaults[settings.provider].model) {
+        return error(400, "invalid_request", "利用できるモデルを選んでください。", false);
+      }
+    }
   }
   try {
     return Response.json(await tutorReply(parsed.data, settings));

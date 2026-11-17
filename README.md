@@ -21,6 +21,8 @@ npm run dev
 
 真模型会收到最近的教学消息；首次验证请只使用合成题和示例回答。证据追问、纠正提示与验证题由规则提供；服务端有校验、超时和可重试错误。Mock 是本地教学流程演示，不提供开放式问答。
 
+公网演示时，在构建阶段设 `NEXT_PUBLIC_TUTOR_PUBLIC_MODE=1`，在运行阶段设 `TUTOR_PUBLIC_ORIGIN` 为访客访问的 HTTPS 地址（如使用非标准端口，包含端口；不加尾斜杠）。让 HTTPS 代理转发至仅监听本机的 Next.js 服务。公网模式默认 Mock；DeepSeek 和 Qwen 使用固定地址与模型，访客自行提供 Key，服务端不会为访客使用环境变量中的 Key。
+
 ```sh
 npm run lint
 npm run typecheck

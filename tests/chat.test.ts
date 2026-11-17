@@ -30,6 +30,31 @@ describe("/api/chat", () => {
       expect.objectContaining({ headers: expect.objectContaining({ Authorization: "Bearer dialog-test-key" }) }));
   });
 
+  it("allows only the configured website and fixed model endpoints in public mode", async () => {
+    const publicOrigin = "https://tutor.example.com:8443";
+    vi.stubEnv("TUTOR_PUBLIC_ORIGIN", publicOrigin);
+    vi.stubEnv("TUTOR_PROVIDER", "deepseek");
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ choices: [
+      { message: { content: '{"replyJa":"先找出基准量。"}' } },
+    ] })));
+    const body = { ...initial(), language: "zh",
+      messages: [{ role: "user", content: "如何比较两个班的参加比例？" }],
+    };
+    const preset = { provider: "deepseek", apiKey: "dialog-test-key",
+      baseUrl: "https://api.deepseek.com", model: "deepseek-flash" };
+    const send = (origin: string, modelSettings?: unknown) => POST(new Request(`${publicOrigin}/api/chat`, {
+      method: "POST", headers: { origin }, body: JSON.stringify({ ...body, modelSettings }),
+    }));
+    expect((await send("https://other.example", preset)).status).toBe(403);
+    expect((await send(publicOrigin, { ...preset, baseUrl: "https://127.0.0.1" })).status).toBe(400);
+    expect((await send(publicOrigin, { ...preset, provider: "compatible" })).status).toBe(400);
+    expect((await send(publicOrigin)).status).toBe(200);
+    expect(fetch).not.toHaveBeenCalled();
+    expect((await send(publicOrigin, preset)).status).toBe(200);
+    expect(fetch).toHaveBeenCalledWith(new URL("https://api.deepseek.com/chat/completions"),
+      expect.objectContaining({ redirect: "error" }));
+  });
+
   it("reproduces the evidence-gated diagnosis across five turns", async () => {
     const session = initial();
     const turns = [
